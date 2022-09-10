@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect } from "react";
+import { weatherapi } from "./https/Https";
+import { useDispatch } from "react-redux";
+import { weatherActions } from "./Store/WeatherDataSlice";
+import Daily from "./Components/Daily/Daily";
+import Chart from "./Components/Daily/Chart";
+import Current from "./Components/Current/Current";
 
 function App() {
-  return (
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const response = weatherapi();
+    response.then((res) => dispatch(weatherActions.addData(res)));
+    response.catch((error)=> console.log(error))
+  }, [dispatch]);
+
+  return(
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Current/>
+      <Chart/>
+      <Daily/>
     </div>
   );
 }
