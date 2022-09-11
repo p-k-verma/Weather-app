@@ -3,34 +3,40 @@
   background-color: #a2a2a2;
   color: #ffff;
 }
-.current {
+.main .submain {
   display: flex;
 }
-.current .maintemp {
-  font-size: 4.2rem;
+.main .single {
   padding-left: 1%;
-  margin: 0;
 }
-.current .curr_detail {
+.main .sign {
   padding-left: 1%;
-  padding-top: 1%;
-  
 }
-.current .curr_detail h4 {
-  margin: 2px 10px;
-  color: #d5d5d5;
-}
-.convert h4 span {
+.main .sign span {
+  padding: 6px;
   cursor: pointer;
-  padding: 0 8px;
-  font-size: 18px;
+} 
+.main .sign .active {
+  pointer-events: none;
 }
-.daily .swiper-slide div {
+.main .single h4 {
+ color: #d5d5d5; 
+}
+.mainbelow .wrap {
+  cursor: pointer;
   text-align: center;
 }
-.daily .swiper-slide.swiper-slide-active div,.daily .swiper-slide.swiper-slide-active,.daily .swiper-slide.swiper-slide-active h2,.daily .swiper-slide.swiper-slide-active h4,.daily .swiper-slide.swiper-slide-active h4 span,.daily .swiper-slide.swiper-slide-active h4 sup,.daily .swiper-slide.swiper-slide-active img{
-  background-color: #7d7d7d;
+.mainbelow .wrap img {
+  margin: auto;
 }
-.daily .swiper-slide.swiper-slide-active {
-  border-radius: 8px;
+.mainbelow .slick-slider .slick-slide.slick-active.slick-current div,.mainbelow .slick-slider .slick-slide.slick-active.slick-current h2,.mainbelow .slick-slider .slick-slide.slick-active.slick-current img,.mainbelow .slick-slider .slick-slide.slick-active.slick-current h4,.mainbelow .slick-slider .slick-slide.slick-active.slick-current span,.mainbelow .slick-slider .slick-slide.slick-active.slick-current sup {
+  background: #838080;
+  border-radius: 15px;
+}
+.slick-slider {
+  overflow: hidden;
+  cursor: pointer;
+}
+.chartName span {
+  cursor: pointer;
 }

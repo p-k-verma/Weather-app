@@ -1,26 +1,36 @@
-import {AreaChart,XAxis,Tooltip,LabelList,ResponsiveContainer,Area,} from "recharts";
+import {AreaChart,XAxis,Tooltip,LabelList,Area,YAxis} from "recharts";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 export default function Chart() {
     const hourlyData = useSelector((state) => state.Wather.hourly);
-
+    const [selector, setselector] = useState("temp")
+    
     let check = hourlyData.map((e)=> {
         let date = new Date (e.dt * 1000)
-        let ho = date.toLocaleTimeString('en-US')
+        let fullTime = date.toLocaleTimeString('en-US')
+        let time = fullTime.split(":")
        return {
                 temp : Math.round(e.temp),
-                dt : ho.slice(0,5) +' '+ ho.slice(-2),
+                dt : time[0] +":" + time[1] + fullTime.slice(-2),
+                wind_speed : Math.round(e.wind_speed)
               }
     })
-    console.log("check",check);
+
+    
+    function setWind(){
+      setselector("wind_speed")
+    }
+    function setTemp(){
+      setselector("temp")
+    }
 
   return (
-    <>
-      <ResponsiveContainer width={window.screen.width - 18} height={250} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-        
+    <>    
+        <h3 className="chartName"><span onClick={setTemp}>Temperature </span><span> | </span><span onClick={setWind}> Wind</span></h3>    
         <AreaChart
           data={check}
-        //   data={data}
+          width={window.screen.width - 18} height={150} margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
         >
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -29,21 +39,19 @@ export default function Chart() {
             </linearGradient>
           </defs>
           <XAxis dataKey="dt" />
-          {/* <XAxis dataKey="name" /> */}
+          <YAxis dataKey={selector} />
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="temp"
+            dataKey={selector}
             // dataKey="uv"
             stroke="#000"
             fillOpacity={1}
             fill="url(#colorUv)"
           >
-            <LabelList dataKey="temp" position="top" />
-            {/* <LabelList dataKey="uv" position="top" /> */}
+            <LabelList dataKey={selector} position="top" />
           </Area>
         </AreaChart>
-      </ResponsiveContainer>
     </>
   );
 }
